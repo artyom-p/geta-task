@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <title>Weather info</title>
+  </head>
+<body>
+  <header id="title" style="margin-bottom: 10px; font-weight: bold;"></header>
+  
+  <section>
+    <article id="weather">
+      <table style="text-align: left;">
+        <tbody>
+          <tr>
+            <th>Weather:</th>
+            <th id="weather-types"></th>
+          </tr>
+          <tr>
+            <th>Actual temperature:</th>
+            <th id="weather-temp"></th>
+          </tr>
+          <tr>
+            <th>Feels like:</th>
+            <th id="weather-feels-like"></th>
+          </tr>
+          <tr>
+            <th>Min:</th>
+            <th id="weather-temp-min"></th>
+          </tr>
+          <tr>
+            <th>Max:</th>
+            <th id="weather-temp-max"></th>
+          </tr>
+          <tr>
+            <th>Pressure:</th>
+            <th id="weather-pressure"></th>
+          </tr>
+          <tr>
+            <th>Humidity:</th>
+            <th id="weather-humidity"></th>
+          </tr>
+          <tr>
+            <th>Wind speed:</th>
+            <th id="wind-speed"></th>
+          </tr>
+          <tr>
+            <th>Wind degree:</th>
+            <th id="wind-degree"></th>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+  </section>
+</body>
+</html>
+
+<script>
+    //https://openweathermap.org/current
+    const apiKey = "090fd2b16128483e07271d70c40c11c4";
+    const STATE_DONE = 4;
+    const cities = ["Riga", "Oslo", "Moscow", "New York", "Berlin", "Stockholm", "Tallinn"];
+    const cityIndex = Math.floor(Math.random() * cities.length);
+
+    (function() {
+      const request = new XMLHttpRequest();
+      request.pos
+
+      request.onreadystatechange = function() {
+        if (this.readyState === STATE_DONE && this.status === 200) {
+          if (!this.response) return;
+
+          const json = JSON.parse(this.response);
+          document.getElementById("title").innerText = `Weather in ${json.name}`;
+
+          const types = json.weather.map(i => i.description).join(', ');
+          document.getElementById("weather-types").innerText = types;
+          document.getElementById("weather-temp").innerText = json.main.temp;
+          document.getElementById("weather-feels-like").innerText = json.main.feels_like;
+          document.getElementById("weather-temp-min").innerText = json.main.temp_min;
+          document.getElementById("weather-temp-max").innerText = json.main.temp_max;
+          document.getElementById("weather-pressure").innerText = json.main.pressure;
+          document.getElementById("weather-humidity").innerText = json.main.humidity;
+
+          document.getElementById("wind-speed").innerText = json.wind.speed;
+          document.getElementById("wind-degree").innerText = json.wind.deg;
+        }
+      };
+
+      request.open("GET", `https://api.openweathermap.org/data/2.5/weather?q=${cities[cityIndex]}&appid=${apiKey}`, true);
+      request.send();
+    })();
+</script>

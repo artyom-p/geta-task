@@ -1,0 +1,5 @@
+1. Header should remain, but search input and button may be converted into a single icon-button. Pressing the button may show the search input.
+2. Breadcrumbs may be shown as "Dashboard > ... > Home" or just "... > Home"
+3. Context menu (Page operations, Browse Space, Add content) can be shown as a single button with 'stack' icon, and menu items shown as the dropdown items, or as an items in an expanding sidebar.
+4. General menu items can be grouped and shown under another icon-button, as the same dropdown or sidebar.
+5. Main content should fill all the widht, content should be shown in a stack layout manner.
